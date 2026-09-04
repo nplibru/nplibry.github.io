@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>nplib.ru - Личный сайт</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Times New Roman', serif;
+  /* ===== СВОЙ ФОН (вставь свою картинку) ===== */
+  background-image:
+   url('загрузка.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+
+  color: #222;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+/* Затемнение фона (чтобы текст читался) */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.85);
+  z-index: -1;
+}
+
+/* ===== ШАПКА ===== */
+.center {
+  text-align: center;
+}
+.main-title {
+  font-size: 52px;
+  font-weight: normal;
+  letter-spacing: 6px;
+  margin-bottom: 5px;
+}
+.sub-title {
+  font-size: 20px;
+  font-weight: normal;
+  color: #555;
+  letter-spacing: 2px;
+}
+
+/* ===== РАМОЧКА ЕЛЕ ЗАМЕТНАЯ ===== */
+.framed {
+  border: 1px solid rgba(0,0,0,0.10);
+  padding: 30px 40px 25px;
+  margin: 15px auto 20px;
+  max-width: 600px;
+  background: rgba(255,255,255,0.5);
+}
+
+/* ===== КНОПКА МУЗЫКИ ===== */
+.music-btn {
+  background: none;
+  border: none;
+  font-family: 'Times New Roman', serif;
+  font-size: 14px;
+  color: #999;
+  text-decoration: underline;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+.music-btn:hover {
+  color: #333;
+}
+.music-note {
+  font-size: 11px;
+  color: #bbb;
+  display: block;
+  margin-top: 2px;
+}
+
+/* ===== НАВИГАЦИЯ (три ссылки в ряд) ===== */
+.nav {
+  text-align: center;
+  margin: 25px 0 30px;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+.nav a {
+  color: #1a3d7c;
+  text-decoration: none;
+  margin: 0 10px;
+}
+.nav a:hover {
+  text-decoration: underline;
+}
+.nav .divider {
+  color: #aaa;
+}
+
+/* ===== ФОТОГАЛЕРЕЯ (3 в ряд) ===== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 30px 0;
+}
+.gallery-item {
+  background: rgba(255,255,255,0.8);
+  border: 1px solid #eee;
+  text-align: center;
+  padding: 10px;
+}
+.gallery-item .placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #888;
+}
+.gallery-item .caption {
+  font-size: 11px;
+  color: #999;
+  margin-top: 6px;
+  letter-spacing: 1px;
+}
+
+/* ===== ГАРМОШКА (аккордеон) ===== */
+.accordion {
+  margin: 30px 0;
+}
+.accordion-item {
+  border-bottom: 1px solid #eee;
+  background: rgba(255,255,255,0.7);
+}
+.accordion-header {
+  background: none;
+  border: none;
+  font-family: 'Times New Roman', serif;
+  font-size: 20px;
+  padding: 16px 0;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  color: #1a3d7c;
+  letter-spacing: 2px;
+}
+.accordion-header:hover {
+  background: rgba(0,0,0,0.05);
+}
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.accordion-body-inner {
+  padding: 0 0 20px 0;
+  font-size: 15px;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* ===== ЗАПИСНАЯ КНИЖКА ===== */
+.notepad {
+  border: 1px solid #eee;
+  padding: 20px 25px;
+  margin: 30px 0;
+  background: rgba(255,255,255,0.8);
+}
+.notepad textarea {
+  width: 100%;
+  height: 100px;
+  border: 1px solid #ddd;
+  padding: 12px;
+  font-family: 'Times New Roman', serif;
+  font-size: 15px;
+  resize: vertical;
+}
+.notepad button {
+  margin-top: 10px;
+  background: none;
+  border: 1px solid #ccc;
+  padding: 6px 24px;
+  font-family: 'Times New Roman', serif;
+  font-size: 14px;
+  cursor: pointer;
+  color: #333;
+}
+.notepad button:hover {
+  background: #eee;
+}
+
+/* ===== ПОДВАЛ ===== */
+.footer {
+  border-top: 1px solid #eee;
+  padding-top: 25px;
+  margin-top: 30px;
+  text-align: center;
+  font-size: 14px;
+  color: #777;
+  letter-spacing: 1px;
+  background: rgba(255,255,255,0.5);
+  padding-bottom: 20px;
+}
+.footer a {
+  color: #1a3d7c;
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+.footer .year {
+  margin: 0 8px;
+}
+</style>
+</head>
+<body>
+
+<!-- ===== ШАПКА ===== -->
+<div class="center">
+  <h1 class="main-title">nplib.ru</h1>
+  <p class="sub-title">личный сайт создателя</p>
+</div>
+
+<!-- ===== РАМОЧКА + КНОПКА МУЗЫКИ ===== -->
+<div class="framed center">
+  <button class="music-btn" id="musicToggle">♫ включить музыку</button>
+  <span class="music-note">чтобы включить фоновую музыку нажмите сюда</span>
+</div>
+
+<!-- ===== НАВИГАЦИЯ (три ссылки) ===== -->
+<div class="nav">
+  <a href="#">фотографии</a>
+  <span class="divider">|</span>
+  <a href="#">текстовой блок</a>
+  <span class="divider">|</span>
+  <a href="#">оставить запись</a>
+</div>
+
+<!-- ===== ФОТОГАЛЕРЕЯ (12 блоков, 3 в ряд) ===== -->
+<div class="gallery">
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+  <div class="gallery-item"><div class="placeholder">фото</div><div class="caption">тест</div></div>
+</div>
+
+<!-- ===== ГАРМОШКА (6 текстовых блоков) ===== -->
+<div class="accordion">
+  <div class="accordion-item">
+    <button class="accordion-header">▸ 4.09.26/Моя хроника дней</button>
+    <div class="accordion-body"><div class="accordion-body-inner"> Вот и начались уже будни учебы.Думаю эта неделя одна из самых странных,везде что-то требуют от меня.конечно мой сайт еще не готов но совсем скоро он выйдет,точнее библиотека.<br>
+    Что я хочу сказать на этот год у меня достаточно большие планы и траты.<br>
+  уже только нескольок учебников присмотрел на покупку и наконец-то позволю себе купить Тайную Историю Донны Тартт... Мне очень интересно прочитает ли это кто-то другой потому что про мой сайт никто незнает:)
+  И боже мой как-же я хочу поехать в Париж!! конечно тут мой текст он не связан и разные темы скачут друг на друга но с другой стороны это мой сайт и тут я выражаю себя. думаю так-же сделаю раздел с моим творчеством а это стишки и сатира. Может быть в далеком будущем я научусб рисовать и это тоже будет тут. и как раз начало сентября и сама осень как ты мне нравишься! как я люблю ее,такую чудесную пору. и переодически я вспоминаю весну 2026года. И как я вспомню что я сидел на первом солнце и пил чай и конечно сейас я напрочь отказался от чая хотя это совершенно другая история,так вот если вы хотите почувствовать мою весну включите КИНО-весна\\<br> думаю что на этом все.<br> Конечно было бы разумнее сделать знакомство первым но... оно будет вторым.
+  </div></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">▸ <em>Пару строк чтобы начать.</em> </button>
+    <div class="accordion-body"><div class="accordion-body-inner"> Мне XVII лет, и я живу в небольшом городе, где книги, тишина и разговоры с самим собой иногда значат больше, чем шум вокруг. Мне кажется, что интернет интереснее немного там, где он становится тихим: в старых форумах, на страницах, которые никто не обновлял десять лет. Ну и конечно же в <i>книгах</i><br><br>Я не знаю, кем стану через десять лет - но знаю, что уже сейчас мне интересно почти всё: философия, физика, языки, литература, устройство мира, люди, культура, астрономия и многое многое другое. А ещё мне интересны вещи, которые не вписываются в готовые категории: абсурдные картинки, шахматные партии без зрителей и разговоры с людьми, которых я никогда не встречу в реальности. Так-же я люблю посткроссинг, сидеть на википедии -- и конечно-же учиться всему новому. Недавно я освоил базовые знания в написании сайтов и вот ты тут. <br><br> Я веду этот сайт не для того, чтобы кого-то учить. Я веду его, чтобы фиксировать то, что сам открываю. Я не хочу быть автором в привычном смысле--мне ближе роль собирателя: оставлять здесь следы, артефакты, мысли, которые не влезают в голову и просятся на свет. Здесь будут заметки о книгах, размышления о прочитанном, попытки разобраться в сложном и простые вопросы, на которые иногда нет готовых ответов. Возможно, я даже выложу сюда видео, сделанное под Aphex Twin из картинок, найденных в глубинах интернета. Поэтому еще я делаю библиотеку.
+   <!-- Начало блока с 4 колонками -->
+<div class="row-columns">
+    
+    <!-- 1. Музыка -->
+    <div class="col">
+        <h3>✓ Музыка</h3>
+        <ul>
+            <li>1. Янка Дягилева</li>
+            <li>2. ABBA</li>
+            <li>3. Nautilus Pompilius</li>
+            <li>4. Aphex Twin</li>
+            <li>5. Sexy Sushi</li>
+            <li>6. Galateé</li>
+            <li>7. Земфира/БИ-2</li>
+        </ul>
+    </div>
+
+    <!-- 2. Книги -->
+    <div class="col">
+        <h3>⊂⊃ Книги</h3>
+        <ul>
+            <li>1. В.Гюго - Человек который смеется</li>
+            <li>2. Ш.Бронте - Джейн Эйр</li>
+            <li>3. Ф.Достоевский - Преступление и наказание</li>
+            <li>4. Р.Фраеманов - Дикая собака Динго</li>
+        </ul>
+    </div>
+
+    <!-- 3. Фильмы (новая колонка) -->
+    <div class="col">
+        <h3>⌗ Фильмы</h3>
+        <ul>
+            <li>1. Брат/Брат 2</li>
+            <li>2. Курьер</li>
+            <li>3. Морфий</li>
+            <li>4. Павел. первый и последний</li>
+        </ul>
+    </div>
+
+    <!-- 4. Хобби (новая колонка) -->
+    <div class="col">
+        <h3>⊲⊳Хобби</h3>
+        <ul>
+            <li>1. Чтение </li>
+            <li>2. Коллекционирование</li>
+            <li>3. Шахматы</li>
+            <li>4. Вики-туризм</li>
+            <li>5. Садоводство</li>
+            <li>6. Дейдримминг</li>
+<br><br> <i>~Ccылки на людей и различные материалы которые мне понравились~</i>
+<br>
+        </ul>
+    </div>
+
+</div>
+<!-- Конец блока с 4 колонками -->
+
+    
+
+</div></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">▸ текстовой блок 3</button>
+    <div class="accordion-body"><div class="accordion-body-inner">тест тест тест тест тест</div></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">▸ текстовой блок 4</button>
+    <div class="accordion-body"><div class="accordion-body-inner">тест тест тест тест тест</div></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">▸ текстовой блок 5</button>
+    <div class="accordion-body"><div class="accordion-body-inner">тест тест тест тест тест</div></div>
+  </div>
+  <div class="accordion-item">
+    <button class="accordion-header">▸ текстовой блок 6</button>
+    <div class="accordion-body"><div class="accordion-body-inner">тест тест тест тест тест</div></div>
+  </div>
+</div>
+
+<!-- ===== ЗАПИСНАЯ КНИЖКА ===== -->
+<div class="notepad">
+  <p style="font-size:14px; color:#555; letter-spacing:1px; margin-bottom:10px;">📝 записная книжка</p>
+  <textarea id="noteInput" placeholder="напишите что-нибудь..."></textarea>
+  <button id="saveNote">сохранить</button>
+  <button id="loadNote" style="margin-left:10px;">загрузить</button>
+</div>
+
+<!-- ===== ПОДВАЛ ===== -->
+<div class="footer">
+  <a href="https://nplib.ru">nplib.ru</a>
+  <span class="year">•</span>
+  <span>2026</span>
+  <span class="year">•</span>
+  <a href="https://nplib.ru">личная библиотека</a>
+</div>
+
+<!-- ===== АУДИО (СКРЫТЫЙ ПЛЕЕР) ===== -->
+<audio id="bgMusic" loop>
+  <source src="BIOS.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ===== JS ===== -->
+<script>
+// --- МУЗЫКА (УЛУЧШЕННАЯ ВЕРСИЯ) ---
+const audio = document.getElementById('bgMusic');
+let isPlaying = false;
+
+document.getElementById('musicToggle').addEventListener('click', function() {
+  if (isPlaying) {
+    audio.pause();
+    this.textContent = '♫ включить музыку';
+    this.style.color = '#999';
+    isPlaying = false;
+  } else {
+    // Пробуем играть
+    audio.play().then(() => {
+      this.textContent = '♫ музыка играет';
+      this.style.color = '#1a3d7c';
+      isPlaying = true;
+    }).catch((error) => {
+      // Если ошибка — показываем понятное сообщение
+      alert('❌ Файл BIOS.mp3 не найден!\n\nПроверь:\n1. Файл лежит в той же папке, что и index.html\n2. Имя файла написано точно: BIOS.mp3 (с большой буквы)\n3. Файл действительно MP3-формата');
+      console.log('Ошибка:', error);
+    });
+  }
+});
+
+// --- ГАРМОШКА ---
+document.querySelectorAll('.accordion-header').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const body = this.nextElementSibling;
+    const isOpen = body.style.maxHeight;
+    document.querySelectorAll('.accordion-body').forEach(b => b.style.maxHeight = null);
+    document.querySelectorAll('.accordion-header').forEach(h => h.textContent = h.textContent.replace('▾', '▸'));
+    if (!isOpen) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      this.textContent = this.textContent.replace('▸', '▾');
+    }
+  });
+});
+
+// --- ЗАПИСНАЯ КНИЖКА ---
+document.getElementById('saveNote').addEventListener('click', function() {
+  const val = document.getElementById('noteInput').value;
+  localStorage.setItem('myNote', val);
+  alert('сохранено!');
+});
+document.getElementById('loadNote').addEventListener('click', function() {
+  const saved = localStorage.getItem('myNote');
+  if (saved !== null) {
+    document.getElementById('noteInput').value = saved;
+  } else {
+    alert('записей нет');
+  }
+});
+window.addEventListener('load', function() {
+  const saved = localStorage.getItem('myNote');
+  if (saved) document.getElementById('noteInput').value = saved;
+});
+</script>
+
+</body>
+</html>
